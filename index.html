@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CompVLA: A Variable Compliance Vision-Language-Action Model for Contact-rich Manipulation</title>
+  <meta name="description" content="CompVLA jointly predicts motion, time-varying stiffness, and virtual displacement from RGB and language, executed through geometric impedance control.">
+
+  <!-- Same stack as the Nerfies / ScrewSplat pages: Bulma + Font Awesome + MathJax -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']] } };
+  </script>
+  <script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body { font-family: 'Noto Sans', sans-serif; }
+    .publication-title, .publication-authors, .publication-venue, .section .title { font-family: 'Google Sans', sans-serif; }
+    .publication-title { font-size: 2.6rem; line-height: 1.2; }
+    .publication-venue { font-size: 1.15rem; color: #555; margin-top: .6rem; }
+    .publication-authors { font-size: 1.25rem; }
+    .publication-authors a { color: #3273dc; }
+    .author-block { display: inline-block; margin: 0 .35rem; }
+    .affiliations { color: #666; font-size: 1rem; }
+    .publication-links { margin-top: 1.4rem; }
+    .publication-links .button { margin: .25rem; }
+    .link-block .button { border-radius: 999px; background: #363636; color: #fff; }
+    .link-block .button:hover { background: #4a4a4a; color: #fff; }
+    .hero.teaser { background: #fff; }
+    .teaser video, .section video, .section img { width: 100%; border-radius: 8px; display: block; }
+    .teaser .subtitle { margin-top: 1.2rem; font-size: 1.2rem; color: #444; }
+    .section .title.is-3 { margin-bottom: 1.2rem; }
+    .content { text-align: justify; }
+    .figure-caption { color: #666; font-size: .95rem; margin-top: .6rem; text-align: center; }
+    .footer { background: #fafafa; padding: 2rem 1rem; }
+    .footer .content { text-align: center; color: #777; font-size: .95rem; }
+    pre.bibtex { text-align: left; font-size: .9rem; overflow-x: auto; }
+    .placeholder { background: #f2f2f2; border: 2px dashed #bbb; border-radius: 8px; padding: 3rem 1rem; text-align: center; color: #888; }
+  </style>
+</head>
+
+<body>
+
+<!-- ============================ HEADER ============================ -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title publication-title">CompVLA: A Variable Compliance Vision-Language-Action Model for Contact-rich Manipulation</h1>
+
+          <!-- TODO: update venue/status once decided -->
+          <div class="publication-venue">Conference on Robot Learning (CoRL) 2026</div>
+
+          <!-- TODO: fill in real authors and homepage links -->
+          <div class="publication-authors" style="margin-top:1rem">
+            <span class="author-block"><a href="#">First Author</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="#">Second Author</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="#">Third Author</a><sup>2</sup>,</span>
+            <span class="author-block"><a href="#">Last Author</a><sup>1</sup></span>
+          </div>
+          <div class="affiliations">
+            <span><sup>1</sup>Institution One,</span>
+            <span><sup>2</sup>Institution Two</span>
+          </div>
+
+          <!-- TODO: replace # with arXiv / YouTube / GitHub / dataset URLs -->
+          <div class="publication-links">
+            <span class="link-block"><a class="button" href="#"><span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper (arXiv)</span></a></span>
+            <span class="link-block"><a class="button" href="#"><span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span></a></span>
+            <span class="link-block"><a class="button" href="#"><span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a></span>
+            <span class="link-block"><a class="button" href="#"><span class="icon"><i class="fas fa-database"></i></span><span>Dataset</span></a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HERO VIDEO ============================ -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body" style="padding-top:0">
+      <!-- Replace with ./assets/videos/intro.mp4 : side-by-side rollouts of Erase / Pivot / Cup Dispense -->
+      <video autoplay muted loop playsinline>
+        <source src="./assets/videos/intro.mp4" type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        CompVLA predicts a reference motion together with a time-varying diagonal stiffness and a virtual displacement,
+        so the robot stays stiff in free space, yields on contact, and presses with the force the task requires.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CAPABILITY 1 ============================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Directional Compliance</h2>
+    <div class="content has-text-centered" style="text-align:center">
+      <p>The robot stays stiff in the plane of motion while remaining compliant along the contact normal.
+      The predicted virtual displacement orients the compliance frame, so the compliant axis follows the contact
+      direction as it changes, as in the Pivot task.</p>
+    </div>
+    <!-- Replace with ./assets/videos/directional_compliance.mp4 (CompVLA vs. baseline losing contact) -->
+    <video autoplay muted loop playsinline>
+      <source src="./assets/videos/directional_compliance.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- ============================ CAPABILITY 2 ============================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Force Modulation</h2>
+    <div class="content" style="text-align:center">
+      <p>Lowering stiffness alone cannot press on a surface. CompVLA shifts the equilibrium pose along the contact
+      direction, turning the impedance spring into a controllable contact force while keeping interaction forces
+      within safe limits, as in the Erase Whiteboard task.</p>
+    </div>
+    <!-- Replace with ./assets/videos/force_modulation.mp4 (CompVLA vs. baseline triggering safety stop) -->
+    <video autoplay muted loop playsinline>
+      <source src="./assets/videos/force_modulation.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- ============================ ABSTRACT ============================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Abstract</h2>
+        <div class="content">
+          <p>Contact-rich manipulation, requiring robots to regulate not only motion but also how they yield to external forces,
+          has emerged as the next frontier for Vision-Language-Action (VLA) models. However, existing VLAs output purely kinematic
+          commands, degrading performance on real-world contact-rich tasks. In this paper, we introduce <em>CompVLA</em>, a unified VLA
+          framework that jointly predicts motion and stiffness matrix from RGB and language inputs. Our approach augments the
+          conventional architecture with a dedicated Compliance Expert, which outputs time-varying stiffness and virtual displacement
+          profiles executed via geometric impedance control. We demonstrate that CompVLA achieves the highest average success rate across
+          diverse contact-rich tasks, outperforming both vanilla and compliance-aware VLA baselines, with ablations confirming each
+          component is essential.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BACKGROUND ============================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Why Compliance for VLAs?</h2>
+        <div class="content">
+          <p>Most VLAs execute trajectories through position control and do not model the force exchanges that arise during contact.
+          In tasks such as polishing, peg-in-hole assembly, and whiteboard erasing, small tracking errors can make the robot lose contact
+          or apply excessive force.</p>
+          <p><strong>Compliance control</strong> specifies the end-effector's closed-loop behavior as a virtual mass–spring–damper,
+          $$ \Lambda_d \dot{\mathcal V}_e + D_d \mathcal V_e + K_d X_e = \mathcal F_{\text{ext}}, $$
+          where \( X_e \) and \( \mathcal V_e \) are the body-frame pose and twist errors on SE(3). In the quasistatic regime this reduces to
+          \( K_d X_e = \mathcal F_{\text{ext}} \), so the stiffness \( K_d \) largely governs the force–displacement relationship.
+          We realize this behavior with <strong>geometric impedance control (GIC)</strong>, which is coordinate-free and almost-globally
+          exponentially stable.</p>
+          <p>Compliance, however, is not always the answer: a stiff controller tracks free-space motion more accurately. A task needs
+          <strong>variable compliance</strong> that stays stiff for precise tracking and yields on contact. Hand-tuning such profiles
+          does not scale, so CompVLA learns them from demonstrations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ METHOD ============================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">CompVLA: Motion, Stiffness, and Virtual Displacement</h2>
+
+        <h3 class="title is-4">Compliance-aware Action Representation</h3>
+        <div class="content">
+          <p>At each timestep the policy predicts a motion chunk \( \mathcal M_t = (m_t, \dots, m_{t+T-1}) \), where each token is
+          $$ m_t = (\mathcal V_t,\, g_t,\, k_t,\, d_t). $$
+          \( \mathcal V_t \in \mathbb R^6 \) is the reference TCP twist and \( g_t \) the gripper command. The
+          <strong>diagonal stiffness</strong> \( k_t = [k^R_t; k^p_t] \in \mathbb R^6 \) sets how the robot yields along each axis, and
+          the <strong>virtual displacement</strong> \( d_t = [d^R_t; d^p_t] \in \mathbb R^6 \) both orients the compliance frame
+          (directional compliance) and shifts the target pose to generate a contact force (force modulation).</p>
+        </div>
+
+        <h3 class="title is-4">Dual-expert Architecture</h3>
+        <div class="content">
+          <p>CompVLA builds on a \( \pi_0 \) backbone (PaliGemma VLM) with two experts attached through cross-attention.
+          The <strong>Action Expert</strong> predicts the reference TCP twist and gripper command. Its integrated trajectory conditions the
+          <strong>Compliance Expert</strong>, which predicts \( k_t \) and \( d_t \). Both experts are trained jointly with flow matching,
+          \( \mathcal L = \mathcal L_a + \mathcal L_c \).</p>
+        </div>
+        <!-- Export Figure 1 from the PDF to ./assets/images/framework.png -->
+        <img src="./assets/images/framework.png" alt="CompVLA framework and geometric impedance controller">
+        <p class="figure-caption">Overall framework of CompVLA and the geometric impedance controller.</p>
+
+        <h3 class="title is-4" style="margin-top:2rem">Learning Compliance from Demonstration</h3>
+        <div class="content">
+          <p>Stiffness and virtual displacement targets are inferred from force/torque recorded during force-feedback teleoperation.
+          The compliance frame's first axis is aligned with the measured contact direction; along it the stiffness is set from the
+          force magnitude by piecewise-linear interpolation,
+          $$ k_{\text{low}}(|f_t|) = \begin{cases} k_{\max}, & |f_t| < f_{\min} \\[2pt]
+          k_{\max} - (k_{\max}-k_{\min})\,\dfrac{|f_t|-f_{\min}}{f_{\max}-f_{\min}}, & f_{\min} \le |f_t| \le f_{\max} \\[6pt]
+          k_{\min}, & |f_t| > f_{\max} \end{cases} $$
+          while the orthogonal axes keep \( k_{\max} \). The displacement magnitude is the demonstrated force divided by
+          \( k_{\text{low}} \), giving \( K_0 = \mathrm{diag}(k_{\text{low}}, k_{\max}, k_{\max}) \) and \( d_t \) along the contact direction.</p>
+        </div>
+
+        <h3 class="title is-4" style="margin-top:2rem">Compliant Motion Generation with GIC</h3>
+        <div class="content">
+          <p>The reference pose is deformed by \( d_t \) into a virtual target
+          \( R^v = R\,\mathrm{Exp}(d^R),\; p^v = p + R\,d^p \), and the diagonal stiffness is mapped into the TCP frame through the
+          compliance-frame rotations \( \tilde R^R, \tilde R^p \):
+          $$ K = \begin{bmatrix} \tilde R^R \mathrm{diag}(k^R)(\tilde R^R)^\top & 0 \\ 0 & \tilde R^p \mathrm{diag}(k^p)(\tilde R^p)^\top \end{bmatrix}. $$
+          The task-space wrench \( \mathcal F = -K X_e - C \mathcal V_e \) is mapped to joint torques by \( \tau = J^\top(\theta)\mathcal F \)
+          at high frequency, coupling low-frequency policy outputs with a high-frequency interaction control loop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ EXPERIMENTS ============================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Real-world Experiments</h2>
+        <div class="content">
+          <p>We evaluate on a 7-DoF Franka Research 3 with three RealSense cameras. Force/torque readings are recorded for training
+          labels only and are <strong>not</strong> used by the policy at evaluation time. Three contact-rich tasks span the regimes where
+          compliance matters: surface tracking under pose uncertainty (Erase Whiteboard), continuously varying compliance direction
+          (Pivot), and force-regulated pressing (Cup Dispense). A Pick and Place task checks that standard manipulation is preserved.</p>
+        </div>
+        <!-- Export Figure 2 from the PDF to ./assets/images/tasks.png -->
+        <img src="./assets/images/tasks.png" alt="Erase Board, Pivot, Cup Dispense, and Pick and Place tasks">
+        <p class="figure-caption">Tasks (a)–(c) require compliance; task (d) verifies standard manipulation.</p>
+
+        <h3 class="title is-4" style="margin-top:2rem">Success Rates</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped has-text-centered" style="margin:auto">
+            <thead>
+              <tr><th>Method</th><th>Erase</th><th>Pivot</th><th>Cup Dispense</th><th>Average</th><th>Pick &amp; Place</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>\( \pi_0 \)</td><td>11.7%</td><td>20.0%</td><td><strong>45.0%</strong></td><td>25.6%</td><td>70.0%</td></tr>
+              <tr><td>ForceVLA</td><td>65.0%</td><td>30.0%</td><td><strong>60.0%</strong></td><td>51.7%</td><td>30.0%</td></tr>
+              <tr><td>TA-VLA</td><td>41.8%</td><td>35.0%</td><td>0.0%</td><td>25.6%</td><td><strong>85.0%</strong></td></tr>
+              <tr><td><strong>CompVLA (ours)</strong></td><td><strong>94.3%</strong></td><td><strong>65.0%</strong></td><td>25.0%</td><td><strong>61.4%</strong></td><td>80.0%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="figure-caption">20 episodes per task. CompVLA outperforms the strongest baseline by ~10% on average across contact-rich tasks
+        and matches \( \pi_0 \) on Pick and Place.</p>
+
+        <h3 class="title is-4" style="margin-top:2rem">Ablations</h3>
+        <div class="columns">
+          <div class="column">
+            <table class="table is-fullwidth is-striped has-text-centered">
+              <thead><tr><th>Compliance Expert (Erase)</th><th>Success</th></tr></thead>
+              <tbody>
+                <tr><td>w/o virtual displacement</td><td>7.0%</td></tr>
+                <tr><td>w/o K &amp; virtual (position only)</td><td>15.3%</td></tr>
+                <tr><td><strong>CompVLA</strong></td><td><strong>96.0%</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="column">
+            <table class="table is-fullwidth is-striped has-text-centered">
+              <thead><tr><th>Stiffness (Pivot)</th><th>Success</th></tr></thead>
+              <tbody>
+                <tr><td>Fixed K</td><td>40.0%</td></tr>
+                <tr><td><strong>Variable K (CompVLA)</strong></td><td><strong>70.0%</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h3 class="title is-4" style="margin-top:2rem">Qualitative Comparison</h3>
+        <!-- Export Figure 4 to ./assets/images/qualitative.png, or embed a YouTube video below -->
+        <img src="./assets/images/qualitative.png" alt="CompVLA maintains contact and safe forces; baselines lose contact or trigger the safety stop">
+        <p class="figure-caption">Baselines lose contact (Pivot) or press too hard and trigger the FR3 safety stop (Erase); CompVLA
+        maintains stable contact within safe force limits.</p>
+
+        <!-- Optional: full experiment video
+        <div class="publication-video" style="margin-top:2rem">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;aspect-ratio:16/9"></iframe>
+        </div>
+        -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DATASET ============================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Contact-rich Demonstration Dataset</h2>
+        <div class="content">
+          <p>We release the demonstrations used to train CompVLA: 100 episodes per task, collected with a force-feedback
+          leader–follower teleoperation system. Each episode contains three camera views, joint positions, joint torques,
+          and wrist force/torque readings, synchronized at 10 Hz and stored in the LeRobot format.</p>
+        </div>
+        <!-- Export Figure 5 to ./assets/images/teleop.png -->
+        <img src="./assets/images/teleop.png" alt="Force-feedback teleoperation setup with leader and follower FR3 arms">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ BIBTEX ============================ -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Citation</h2>
+    <!-- TODO: update with real author list, arXiv ID, and year -->
+<pre class="bibtex"><code>@article{compvla2026,
+  title   = {CompVLA: A Variable Compliance Vision-Language-Action Model for Contact-rich Manipulation},
+  author  = {Author, First and Author, Second and Author, Third and Author, Last},
+  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  year    = {2026}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content">
+      Website template modified from <a href="https://nerfies.github.io/">Nerfies</a>.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
+
