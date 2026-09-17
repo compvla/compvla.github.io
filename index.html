@@ -9,7 +9,7 @@
   <!-- Same stack as the Nerfies / ScrewSplat pages: Bulma + Font Awesome + MathJax -->
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script>
     window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']] } };
   </script>
@@ -18,26 +18,60 @@
   <style>
     body { font-family: 'Noto Sans', sans-serif; }
     .publication-title, .publication-authors, .publication-venue, .section .title { font-family: 'Google Sans', sans-serif; }
-    .publication-title { font-size: 2.6rem; line-height: 1.2; }
+    .publication-title { font-size: 2.3rem; line-height: 1.2; }
     .publication-venue { font-size: 1.15rem; color: #555; margin-top: .6rem; }
     .publication-authors { font-size: 1.25rem; }
     .publication-authors a { color: #3273dc; }
     .author-block { display: inline-block; margin: 0 .35rem; }
     .affiliations { color: #666; font-size: 1rem; }
     .publication-links { margin-top: 1.4rem; }
+    .logo-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+      gap: 2.4rem; margin-top: 1.7rem; }
+    .logo-row img { display: block; width: auto; border-radius: 0; }
+    .logo-row .logo-snu { height: 48px; }
+    .logo-row .logo-roboticslab { height: 42px; }
+    .logo-row .logo-microsoft { height: 31px; }
+    @media screen and (max-width: 768px) {
+      .logo-row { gap: 1.5rem; }
+      .logo-row .logo-snu { height: 34px; }
+      .logo-row .logo-roboticslab { height: 30px; }
+      .logo-row .logo-microsoft { height: 22px; }
+    }
     .publication-links .button { margin: .25rem; }
-    .link-block .button { border-radius: 999px; background: #363636; color: #fff; }
+    .arxiv-icon { height: 1.05em; width: auto; display: block; }
+    .link-block .button { background: #363636; color: #fff; }
     .link-block .button:hover { background: #4a4a4a; color: #fff; }
     .hero.teaser { background: #fff; }
     .teaser video, .section video, .section img { width: 100%; border-radius: 8px; display: block; }
-    .teaser .subtitle { margin-top: 1.2rem; font-size: 1.2rem; color: #444; }
+    .teaser .hero-body { padding-left: 0; padding-right: 0; }
+    .teaser .subtitle { margin-top: 1.2rem; font-size: 1.1rem; color: #444; text-wrap: balance; }
     .section .title.is-3 { margin-bottom: 1.2rem; }
     .content { text-align: justify; }
     .figure-caption { color: #666; font-size: .95rem; margin-top: .6rem; text-align: center; }
     .footer { background: #fafafa; padding: 2rem 1rem; }
     .footer .content { text-align: center; color: #777; font-size: .95rem; }
     pre.bibtex { text-align: left; font-size: .9rem; overflow-x: auto; }
-    .placeholder { background: #f2f2f2; border: 2px dashed #bbb; border-radius: 8px; padding: 3rem 1rem; text-align: center; color: #888; }
+    .results-table { border-collapse: collapse; }
+    .results-table td, .results-table th { vertical-align: middle; text-align: center !important; }
+    /* heavy top/bottom rules */
+    .results-table thead .group-row th { border-top: 2.5px solid #363636; }
+    .results-table tbody tr:last-child td { border-bottom: 2.5px solid #363636; }
+    /* medium rules: under group labels, under column headers, under CompVLA */
+    .results-table thead .group-row th { border-bottom: 1.5px solid #363636; padding-bottom: .15rem; font-size: 1.15rem; }
+    .results-table thead .col-row th { border-bottom: 1.5px solid #363636; }
+    .results-table tbody tr.group-end td { border-bottom: 1.5px solid #363636; }
+    /* vertical rules: right of Method and right of Average */
+    .results-table thead .group-row th:first-child,
+    .results-table thead .group-row th:nth-child(2),
+    .results-table thead .col-row th:nth-child(4),
+    .results-table tbody td:first-child,
+    .results-table tbody td:nth-child(5) { border-right: 1px solid #363636; }
+    .todo-section { background: #fffbea; border-top: 2px dashed #e0c76a; }
+    .todo-list { list-style: none; margin: 0; padding: 0; color: #555; }
+    .todo-list li { padding: .3rem 0; }
+    .todo-list input { margin-right: .6rem; vertical-align: middle; }
+    .task-row .figure-caption { margin-top: .5rem; font-size: .95rem; }
+    .placeholder { background: #f2f2f2; border: 2px dashed #bbb; border-radius: 8px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; text-align: center; color: #888; }
   </style>
 </head>
 
@@ -49,29 +83,56 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title publication-title">CompVLA: A Variable Compliance Vision-Language-Action Model for Contact-rich Manipulation</h1>
+          <h1 class="title publication-title">CompVLA: A Variable Compliance Vision-Language-<br>Action Model for Contact-rich Manipulation</h1>
 
           <!-- TODO: update venue/status once decided -->
           <div class="publication-venue">Conference on Robot Learning (CoRL) 2026</div>
 
-          <!-- TODO: fill in real authors and homepage links -->
           <div class="publication-authors" style="margin-top:1rem">
-            <span class="author-block"><a href="#">First Author</a><sup>1</sup>,</span>
-            <span class="author-block"><a href="#">Second Author</a><sup>1</sup>,</span>
-            <span class="author-block"><a href="#">Third Author</a><sup>2</sup>,</span>
-            <span class="author-block"><a href="#">Last Author</a><sup>1</sup></span>
+            <span class="author-block">Jongmin Kim<sup>1*</sup>,</span>
+            <span class="author-block">Junsu Ha<sup>1*</sup>,</span>
+            <span class="author-block">Che-Sang Park<sup>1*</sup>,</span>
+            <span class="author-block">Minchang Song<sup>1</sup>,</span>
+            <span class="author-block">Hyeokju Jeong<sup>1</sup>,</span>
+            <span class="author-block">Himchan Hwang<sup>1</sup>,</span>
+            <span class="author-block">Jianlong Fu<sup>2</sup>,</span>
+            <span class="author-block">Frank C. Park<sup>1†</sup></span>
           </div>
           <div class="affiliations">
-            <span><sup>1</sup>Institution One,</span>
-            <span><sup>2</sup>Institution Two</span>
+            <span><sup>1</sup>Seoul National University,</span>
+            <span><sup>2</sup>Microsoft Research Asia</span>
+          </div>
+          <div class="affiliations" style="margin-top:.3rem">
+            <span><sup>*</sup>Equal contribution,</span>
+            <span><sup>†</sup>Corresponding author</span>
           </div>
 
-          <!-- TODO: replace # with arXiv / YouTube / GitHub / dataset URLs -->
+          <div class="logo-row">
+            <img class="logo-snu" src="./assets/images/logos/snu_full.png" alt="Seoul National University">
+            <img class="logo-roboticslab" src="./assets/images/logos/roboticslab.png" alt="Robotics Laboratory">
+            <img class="logo-microsoft" src="./assets/images/logos/microsoft.png" alt="Microsoft">
+          </div>
+
+          <!-- TODO: replace # with arXiv / YouTube / GitHub URLs -->
           <div class="publication-links">
-            <span class="link-block"><a class="button" href="#"><span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper (arXiv)</span></a></span>
-            <span class="link-block"><a class="button" href="#"><span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span></a></span>
-            <span class="link-block"><a class="button" href="#"><span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a></span>
-            <span class="link-block"><a class="button" href="#"><span class="icon"><i class="fas fa-database"></i></span><span>Dataset</span></a></span>
+            <span class="link-block">
+              <a class="button is-rounded" href="#" target="_blank" rel="noopener">
+                <span class="icon"><svg class="arxiv-icon" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path fill="currentColor" d="m 119.65,351.996 c -5.84961,0.13477 -11.1943,-3.29883 -13.502,-8.67578 -2.19629,-5.27051 -0.61914,-8.9668 4.19727,-15.8652 7.05469,-10.3799 78.8242,-96.5625 78.8242,-96.5625 l -15.8828,-14.8633 c -13.3809,-13.3779 -13.9561,-31.333 -1.50977,-43.7754 l 18.4922,-17.6133 -51.5977,-63.377 c -4.00586,-4.26758 -6.48535,-11.7559 -4.24805,-17.1309 2.27832,-5.53613 7.69727,-9.12891 13.6836,-9.07031 3.83398,0.0957 7.43262,1.87402 9.83789,4.86133 l 61.3691,57.0566 94.5762,-90.0703 c 3.19434,-3.08398 7.44336,-4.83984 11.8828,-4.91016 1.60449,0.0039 3.19824,0.245117 4.73242,0.714844 5.7793,1.80566 10.249,6.41797 11.8711,12.252 1.2998,5.47363 -0.27637,11.2334 -4.18164,15.2832 l -83.0859,100.011996 14.8789,13.834 c 11.0957,10.0029 11.1543,27.3906 0.12695,37.4688 l -16.2949,15.6309 56.2559,66.4434 0.0742,0.0859 0.0664,0.0899 c 5.02734,6.53125 7.43164,11.5615 4.83984,17.9395 -3.13379,5.96875 -8.69727,10.29 -15.2559,11.8516 -0.67676,0.0908 -1.35938,0.13574 -2.04297,0.13671 l -0.004,-0.0117 c -4.42871,-0.27051 -8.61035,-2.13086 -11.7754,-5.24023 l -0.13086,-0.10743 -0.12304,-0.11132 -65.207,-59.127 -89.8965,86.2402 c 0,0 -5.33398,6.47754 -10.9707,6.61133 z m 178.104,-33.041 c 0.47852,-0.002 0.95703,-0.0332 1.43164,-0.0957 4.84277,-1.33301 8.95605,-4.54004 11.4316,-8.91016 1.44922,-3.5625 1.00293,-6.45703 -4.19727,-13.2148 l -56.0586,-66.2188 -26.375,25.3027 64.9551,58.9062 c 2.33887,2.41504 5.46484,3.91113 8.8125,4.2168 v 0.0137 z M 192.436,227.402 334.446,57.244 c 2.78711,-3.48926 4.5293,-6.97949 3.3418,-10.9121 -1.16113,-4.30273 -4.43457,-7.71777 -8.68555,-9.05664 -1.08105,-0.333984 -2.20508,-0.503906 -3.33594,-0.505859 -3.20801,0.07617 -6.26953,1.35645 -8.57617,3.58789 l -142.033,135.284999 c -11.1719,11.1719 -9.48242,26.0195 1.39258,36.8945 z"/></svg></span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a class="button is-rounded" href="#" target="_blank" rel="noopener">
+                <span class="icon"><i class="fab fa-youtube"></i></span>
+                <span>Video</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a class="button is-rounded" href="#" target="_blank" rel="noopener">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
           </div>
         </div>
       </div>
@@ -83,47 +144,25 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body" style="padding-top:0">
-      <!-- Replace with ./assets/videos/intro.mp4 : side-by-side rollouts of Erase / Pivot / Cup Dispense -->
-      <video autoplay muted loop playsinline>
-        <source src="./assets/videos/intro.mp4" type="video/mp4">
-      </video>
+      <!-- Both clips are 210 frames @ 30 fps; the script below starts them together and restarts both on every loop -->
+      <div class="columns is-centered is-variable is-2">
+        <div class="column is-half">
+          <video controls class="synced-video" data-sync="teaser" muted playsinline preload="auto">
+            <source src="./assets/videos/pivot.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="column is-half">
+          <video controls class="synced-video" data-sync="teaser" muted playsinline preload="auto">
+            <source src="./assets/videos/dispense.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
       <h2 class="subtitle has-text-centered">
-        CompVLA predicts a reference motion together with a time-varying diagonal stiffness and a virtual displacement,
-        so the robot stays stiff in free space, yields on contact, and presses with the force the task requires.
+        CompVLA predicts motion together with a time-varying stiffness and virtual displacement.
+        A shorter ellipsoid radius means lower stiffness along that direction:
+        stiff in free space, compliant where contact requires it.
       </h2>
     </div>
-  </div>
-</section>
-
-<!-- ============================ CAPABILITY 1 ============================ -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Directional Compliance</h2>
-    <div class="content has-text-centered" style="text-align:center">
-      <p>The robot stays stiff in the plane of motion while remaining compliant along the contact normal.
-      The predicted virtual displacement orients the compliance frame, so the compliant axis follows the contact
-      direction as it changes, as in the Pivot task.</p>
-    </div>
-    <!-- Replace with ./assets/videos/directional_compliance.mp4 (CompVLA vs. baseline losing contact) -->
-    <video autoplay muted loop playsinline>
-      <source src="./assets/videos/directional_compliance.mp4" type="video/mp4">
-    </video>
-  </div>
-</section>
-
-<!-- ============================ CAPABILITY 2 ============================ -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Force Modulation</h2>
-    <div class="content" style="text-align:center">
-      <p>Lowering stiffness alone cannot press on a surface. CompVLA shifts the equilibrium pose along the contact
-      direction, turning the impedance spring into a controllable contact force while keeping interaction forces
-      within safe limits, as in the Erase Whiteboard task.</p>
-    </div>
-    <!-- Replace with ./assets/videos/force_modulation.mp4 (CompVLA vs. baseline triggering safety stop) -->
-    <video autoplay muted loop playsinline>
-      <source src="./assets/videos/force_modulation.mp4" type="video/mp4">
-    </video>
   </div>
 </section>
 
@@ -152,21 +191,43 @@
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">Why Compliance for VLAs?</h2>
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Why Variable Compliance Control for VLAs?</h2>
         <div class="content">
           <p>Most VLAs execute trajectories through position control and do not model the force exchanges that arise during contact.
-          In tasks such as polishing, peg-in-hole assembly, and whiteboard erasing, small tracking errors can make the robot lose contact
-          or apply excessive force.</p>
-          <p><strong>Compliance control</strong> specifies the end-effector's closed-loop behavior as a virtual mass–spring–damper,
-          $$ \Lambda_d \dot{\mathcal V}_e + D_d \mathcal V_e + K_d X_e = \mathcal F_{\text{ext}}, $$
-          where \( X_e \) and \( \mathcal V_e \) are the body-frame pose and twist errors on SE(3). In the quasistatic regime this reduces to
-          \( K_d X_e = \mathcal F_{\text{ext}} \), so the stiffness \( K_d \) largely governs the force–displacement relationship.
-          We realize this behavior with <strong>geometric impedance control (GIC)</strong>, which is coordinate-free and almost-globally
-          exponentially stable.</p>
-          <p>Compliance, however, is not always the answer: a stiff controller tracks free-space motion more accurately. A task needs
-          <strong>variable compliance</strong> that stays stiff for precise tracking and yields on contact. Hand-tuning such profiles
-          does not scale, so CompVLA learns them from demonstrations.</p>
+          A position controller tracks the commanded pose regardless of contact, so a small error in the predicted contact
+          geometry leads to task failure. Aim slightly above the surface and the robot <strong>loses contact</strong>:
+          the gripper slips off the pivoting board. Aim slightly below and it applies <strong>excessive force</strong>, damaging the
+          object or triggering the safety stop.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Failure examples of position-controlled VLAs -->
+    <div class="columns is-centered is-variable is-4 failure-row">
+      <div class="column is-two-fifths">
+        <video controls autoplay muted loop playsinline>
+          <source src="./assets/videos/failure_contact_loss.mp4" type="video/mp4">
+        </video>
+        <p class="figure-caption"><strong>Contact loss.</strong> The gripper loses contact during pivoting.</p>
+      </div>
+      <div class="column is-two-fifths">
+        <video controls autoplay muted loop playsinline>
+          <source src="./assets/videos/failure_excessive_force.mp4" type="video/mp4">
+        </video>
+        <p class="figure-caption"><strong>Excessive force.</strong> The robot pushes into the surface until the safety stop triggers.</p>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content">
+          <p><strong>Compliance control</strong> resolves this by letting the end-effector behave like a spring: it yields from
+          the commanded pose in proportion to the contact force, so the robot stays in contact and the force stays bounded.
+          A uniformly soft robot, however, tracks free-space motion poorly. The robot therefore needs
+          <strong>variable compliance</strong>, stiff in free space and compliant only where contact occurs. Hand-tuning such
+          profiles does not scale, so CompVLA learns them from demonstrations.</p>
         </div>
       </div>
     </div>
@@ -177,10 +238,37 @@
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered">CompVLA: Motion, Stiffness, and Virtual Displacement</h2>
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">CompVLA: VLA with Directional Compliance &amp; <span style="white-space:nowrap">Force Modulation</span></h2>
 
-        <h3 class="title is-4">Compliance-aware Action Representation</h3>
+        <div class="columns is-variable is-4 capability-desc">
+          <div class="column is-half">
+            <div class="content">
+              <p><strong>Directional Compliance.</strong> The robot stays stiff in the plane of motion while remaining
+              compliant along the contact normal.</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="content">
+              <p><strong>Force Modulation.</strong> The robot modulates the contact force through the stiffness and the
+              displacement between the reference pose and the virtual target.</p>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-variable is-4" style="margin-top:-0.75rem">
+          <div class="column is-half">
+            <video controls class="synced-video" data-sync="capabilities" muted playsinline preload="auto">
+              <source src="./assets/videos/directional_compliance.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="column is-half">
+            <video controls class="synced-video" data-sync="capabilities" muted playsinline preload="auto">
+              <source src="./assets/videos/force_modulation.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <h3 class="title is-4" style="margin-top:2rem">Compliance-aware Action Representation</h3>
         <div class="content">
           <p>At each timestep the policy predicts a motion chunk \( \mathcal M_t = (m_t, \dots, m_{t+T-1}) \), where each token is
           $$ m_t = (\mathcal V_t,\, g_t,\, k_t,\, d_t). $$
@@ -195,33 +283,12 @@
           <p>CompVLA builds on a \( \pi_0 \) backbone (PaliGemma VLM) with two experts attached through cross-attention.
           The <strong>Action Expert</strong> predicts the reference TCP twist and gripper command. Its integrated trajectory conditions the
           <strong>Compliance Expert</strong>, which predicts \( k_t \) and \( d_t \). Both experts are trained jointly with flow matching,
-          \( \mathcal L = \mathcal L_a + \mathcal L_c \).</p>
+          \( \mathcal L = \mathcal L_a + \mathcal L_c \), where \( \mathcal L_a \) and \( \mathcal L_c \) are the flow-matching
+          losses of the Action Expert and the Compliance Expert, respectively.</p>
         </div>
-        <!-- Export Figure 1 from the PDF to ./assets/images/framework.png -->
-        <img src="./assets/images/framework.png" alt="CompVLA framework and geometric impedance controller">
+        <!-- Figure 1 of the paper -->
+        <img src="./assets/images/CompVLA.png" alt="CompVLA framework and geometric impedance controller">
         <p class="figure-caption">Overall framework of CompVLA and the geometric impedance controller.</p>
-
-        <h3 class="title is-4" style="margin-top:2rem">Learning Compliance from Demonstration</h3>
-        <div class="content">
-          <p>Stiffness and virtual displacement targets are inferred from force/torque recorded during force-feedback teleoperation.
-          The compliance frame's first axis is aligned with the measured contact direction; along it the stiffness is set from the
-          force magnitude by piecewise-linear interpolation,
-          $$ k_{\text{low}}(|f_t|) = \begin{cases} k_{\max}, & |f_t| < f_{\min} \\[2pt]
-          k_{\max} - (k_{\max}-k_{\min})\,\dfrac{|f_t|-f_{\min}}{f_{\max}-f_{\min}}, & f_{\min} \le |f_t| \le f_{\max} \\[6pt]
-          k_{\min}, & |f_t| > f_{\max} \end{cases} $$
-          while the orthogonal axes keep \( k_{\max} \). The displacement magnitude is the demonstrated force divided by
-          \( k_{\text{low}} \), giving \( K_0 = \mathrm{diag}(k_{\text{low}}, k_{\max}, k_{\max}) \) and \( d_t \) along the contact direction.</p>
-        </div>
-
-        <h3 class="title is-4" style="margin-top:2rem">Compliant Motion Generation with GIC</h3>
-        <div class="content">
-          <p>The reference pose is deformed by \( d_t \) into a virtual target
-          \( R^v = R\,\mathrm{Exp}(d^R),\; p^v = p + R\,d^p \), and the diagonal stiffness is mapped into the TCP frame through the
-          compliance-frame rotations \( \tilde R^R, \tilde R^p \):
-          $$ K = \begin{bmatrix} \tilde R^R \mathrm{diag}(k^R)(\tilde R^R)^\top & 0 \\ 0 & \tilde R^p \mathrm{diag}(k^p)(\tilde R^p)^\top \end{bmatrix}. $$
-          The task-space wrench \( \mathcal F = -K X_e - C \mathcal V_e \) is mapped to joint torques by \( \tau = J^\top(\theta)\mathcal F \)
-          at high frequency, coupling low-frequency policy outputs with a high-frequency interaction control loop.</p>
-        </div>
       </div>
     </div>
   </div>
@@ -231,63 +298,60 @@
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Real-world Experiments</h2>
         <div class="content">
           <p>We evaluate on a 7-DoF Franka Research 3 with three RealSense cameras. Force/torque readings are recorded for training
-          labels only and are <strong>not</strong> used by the policy at evaluation time. Three contact-rich tasks span the regimes where
+          labels only and are not used by the policy at evaluation time. Three contact-rich tasks span the regimes where
           compliance matters: surface tracking under pose uncertainty (Erase Whiteboard), continuously varying compliance direction
           (Pivot), and force-regulated pressing (Cup Dispense). A Pick and Place task checks that standard manipulation is preserved.</p>
         </div>
-        <!-- Export Figure 2 from the PDF to ./assets/images/tasks.png -->
-        <img src="./assets/images/tasks.png" alt="Erase Board, Pivot, Cup Dispense, and Pick and Place tasks">
-        <p class="figure-caption">Tasks (a)–(c) require compliance; task (d) verifies standard manipulation.</p>
+        <div class="columns is-variable is-2 task-row" style="margin-top:2rem">
+          <div class="column is-one-quarter">
+            <video controls autoplay muted loop playsinline preload="metadata">
+              <source src="./assets/videos/task_erase.mp4" type="video/mp4">
+            </video>
+            <p class="figure-caption">Erase Whiteboard</p>
+          </div>
+          <div class="column is-one-quarter">
+            <video controls autoplay muted loop playsinline preload="metadata">
+              <source src="./assets/videos/task_pivot.mp4" type="video/mp4">
+            </video>
+            <p class="figure-caption">Pivot</p>
+          </div>
+          <div class="column is-one-quarter">
+            <video controls autoplay muted loop playsinline preload="metadata">
+              <source src="./assets/videos/task_dispense.mp4" type="video/mp4">
+            </video>
+            <p class="figure-caption">Cup Dispense</p>
+          </div>
+          <div class="column is-one-quarter">
+            <video controls autoplay muted loop playsinline preload="metadata">
+              <source src="./assets/videos/task_pnp.mp4" type="video/mp4">
+            </video>
+            <p class="figure-caption">Pick &amp; Place</p>
+          </div>
+        </div>
 
         <h3 class="title is-4" style="margin-top:2rem">Success Rates</h3>
         <div class="table-container">
-          <table class="table is-fullwidth is-striped has-text-centered" style="margin:auto">
+          <table class="table is-fullwidth is-striped has-text-centered results-table" style="margin:auto">
             <thead>
-              <tr><th>Method</th><th>Erase</th><th>Pivot</th><th>Cup Dispense</th><th>Average</th><th>Pick &amp; Place</th></tr>
+              <tr class="group-row"><th rowspan="2">Method</th><th colspan="4">Contact-rich</th><th>Standard</th></tr>
+              <tr class="col-row"><th>Erase</th><th>Pivot</th><th>Cup Dispense</th><th>Average</th><th>Pick &amp; Place</th></tr>
             </thead>
             <tbody>
-              <tr><td>\( \pi_0 \)</td><td>11.7%</td><td>20.0%</td><td><strong>45.0%</strong></td><td>25.6%</td><td>70.0%</td></tr>
-              <tr><td>ForceVLA</td><td>65.0%</td><td>30.0%</td><td><strong>60.0%</strong></td><td>51.7%</td><td>30.0%</td></tr>
-              <tr><td>TA-VLA</td><td>41.8%</td><td>35.0%</td><td>0.0%</td><td>25.6%</td><td><strong>85.0%</strong></td></tr>
-              <tr><td><strong>CompVLA (ours)</strong></td><td><strong>94.3%</strong></td><td><strong>65.0%</strong></td><td>25.0%</td><td><strong>61.4%</strong></td><td>80.0%</td></tr>
+              <tr><td>\( \pi_0 \)</td><td>17.8 ± 7.1</td><td>31.7 ± 10.4</td><td>38.0 ± 12.1</td><td>29.2 ± 9.2</td><td>80.0 ± 10.0</td></tr>
+              <tr><td>ForceVLA</td><td>68.1 ± 4.1</td><td>45.0 ± 15.0</td><td><strong>50.0 ± 8.7</strong></td><td>54.4 ± 4.3</td><td>45.0 ± 15.0</td></tr>
+              <tr><td>TA-VLA</td><td>52.8 ± 9.7</td><td>26.7 ± 10.4</td><td>0.0 ± 0.0</td><td>26.5 ± 2.0</td><td><strong>83.3 ± 12.6</strong></td></tr>
+              <tr class="group-end"><td><strong>CompVLA (ours)</strong></td><td><strong>92.9 ± 3.7</strong></td><td><strong>73.3 ± 10.4</strong></td><td>35.0 ± 10.0</td><td><strong>67.1 ± 7.2</strong></td><td>76.7 ± 5.8</td></tr>
+              <tr><td>DP</td><td>0.0</td><td>0.0</td><td>10.0</td><td>3.3</td><td>50.0</td></tr>
+              <tr><td>ACT</td><td>0.0</td><td>15.0</td><td>30.0</td><td>15.0</td><td>0.0</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="figure-caption">20 episodes per task. CompVLA outperforms the strongest baseline by ~10% on average across contact-rich tasks
-        and matches \( \pi_0 \) on Pick and Place.</p>
-
-        <h3 class="title is-4" style="margin-top:2rem">Ablations</h3>
-        <div class="columns">
-          <div class="column">
-            <table class="table is-fullwidth is-striped has-text-centered">
-              <thead><tr><th>Compliance Expert (Erase)</th><th>Success</th></tr></thead>
-              <tbody>
-                <tr><td>w/o virtual displacement</td><td>7.0%</td></tr>
-                <tr><td>w/o K &amp; virtual (position only)</td><td>15.3%</td></tr>
-                <tr><td><strong>CompVLA</strong></td><td><strong>96.0%</strong></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="column">
-            <table class="table is-fullwidth is-striped has-text-centered">
-              <thead><tr><th>Stiffness (Pivot)</th><th>Success</th></tr></thead>
-              <tbody>
-                <tr><td>Fixed K</td><td>40.0%</td></tr>
-                <tr><td><strong>Variable K (CompVLA)</strong></td><td><strong>70.0%</strong></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <h3 class="title is-4" style="margin-top:2rem">Qualitative Comparison</h3>
-        <!-- Export Figure 4 to ./assets/images/qualitative.png, or embed a YouTube video below -->
-        <img src="./assets/images/qualitative.png" alt="CompVLA maintains contact and safe forces; baselines lose contact or trigger the safety stop">
-        <p class="figure-caption">Baselines lose contact (Pivot) or press too hard and trigger the FR3 safety stop (Erase); CompVLA
-        maintains stable contact within safe force limits.</p>
+        <p class="figure-caption">Success rate (%), mean ± standard deviation. CompVLA achieves the highest average across the contact-rich
+        tasks while remaining comparable to \( \pi_0 \) on Pick and Place.</p>
 
         <!-- Optional: full experiment video
         <div class="publication-video" style="margin-top:2rem">
@@ -303,15 +367,17 @@
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Contact-rich Demonstration Dataset</h2>
         <div class="content">
           <p>We release the demonstrations used to train CompVLA: 100 episodes per task, collected with a force-feedback
-          leader–follower teleoperation system. Each episode contains three camera views, joint positions, joint torques,
-          and wrist force/torque readings, synchronized at 10 Hz and stored in the LeRobot format.</p>
+          leader–follower teleoperation system. Each episode contains three camera views, joint positions,
+          <strong>joint torques, and wrist force/torque readings</strong>, synchronized at 10 Hz and stored in the
+          LeRobot format.</p>
         </div>
-        <!-- Export Figure 5 to ./assets/images/teleop.png -->
-        <img src="./assets/images/teleop.png" alt="Force-feedback teleoperation setup with leader and follower FR3 arms">
+        <video controls autoplay muted loop playsinline preload="metadata">
+          <source src="./assets/videos/dataset_grid.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
@@ -324,10 +390,32 @@
     <!-- TODO: update with real author list, arXiv ID, and year -->
 <pre class="bibtex"><code>@article{compvla2026,
   title   = {CompVLA: A Variable Compliance Vision-Language-Action Model for Contact-rich Manipulation},
-  author  = {Author, First and Author, Second and Author, Third and Author, Last},
+  author  = {Kim, Jongmin and Ha, Junsu and Park, Che-Sang and Song, Minchang and Jeong, Hyeokju and Hwang, Himchan and Fu, Jianlong and Park, Frank C.},
   journal = {arXiv preprint arXiv:XXXX.XXXXX},
   year    = {2026}
 }</code></pre>
+  </div>
+</section>
+
+<!-- ============================ TODO (remove before release) ============================ -->
+<section class="section todo-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4 has-text-centered">Page TODO <span class="tag is-warning is-light">draft note, remove before release</span></h2>
+        <ul class="todo-list">
+          <li><input type="checkbox" disabled> Step-by-step video of Figure 1 in the paper</li>
+          <li><input type="checkbox" disabled checked> Example videos where contemporary VLAs fail</li>
+          <li><input type="checkbox" disabled checked> Institute logos (SNU, Robotics Laboratory, Microsoft Research Asia) in the header</li>
+          <li><input type="checkbox" disabled> Include the actual citation</li>
+          <li><input type="checkbox" disabled checked> Update the success rate table</li>
+          <li><input type="checkbox" disabled> Include teleoperation videos in "Contact-rich Demonstration Dataset"</li>
+          <li><input type="checkbox" disabled checked> Add task videos in "Real-world Experiments"</li>
+          <li><input type="checkbox" disabled> Experiment results grid showing how each model behaves</li>
+          <li><input type="checkbox" disabled checked> Match the aspect ratio of the Pivot and Cup Dispense videos in the first section</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -339,6 +427,31 @@
   </div>
 </footer>
 
+<script>
+  // Videos sharing a data-sync value start together and restart together on every loop.
+  (function () {
+    var groups = {};
+    Array.prototype.forEach.call(document.querySelectorAll('.synced-video'), function (v) {
+      var g = v.getAttribute('data-sync') || 'default';
+      (groups[g] = groups[g] || []).push(v);
+    });
+    Object.keys(groups).forEach(function (g) {
+      var vids = groups[g], ready = 0;
+      function restart() {
+        vids.forEach(function (v) { v.pause(); v.currentTime = 0; });
+        Promise.all(vids.map(function (v) { return v.play().catch(function () {}); }));
+      }
+      vids.forEach(function (v) {
+        v.addEventListener('ended', restart);
+        v.addEventListener('canplaythrough', function onReady() {
+          v.removeEventListener('canplaythrough', onReady);
+          if (++ready === vids.length) restart();
+        });
+        if (v.readyState >= 4) v.dispatchEvent(new Event('canplaythrough'));
+      });
+    });
+  })();
+</script>
+
 </body>
 </html>
-
