@@ -51,6 +51,7 @@
     .footer { background: #fafafa; padding: 2rem 1rem; }
     .footer .content { text-align: center; color: #777; font-size: .95rem; }
     pre.bibtex { text-align: left; font-size: .9rem; overflow-x: auto; }
+    .citation-tba { text-align: center; color: #666; font-size: 1.05rem; margin: 0; }
     .results-table { border-collapse: collapse; }
     .results-table td, .results-table th { vertical-align: middle; text-align: center !important; }
     /* heavy top/bottom rules */
@@ -66,10 +67,6 @@
     .results-table thead .col-row th:nth-child(4),
     .results-table tbody td:first-child,
     .results-table tbody td:nth-child(5) { border-right: 1px solid #363636; }
-    .todo-section { background: #fffbea; border-top: 2px dashed #e0c76a; }
-    .todo-list { list-style: none; margin: 0; padding: 0; color: #555; }
-    .todo-list li { padding: .3rem 0; }
-    .todo-list input { margin-right: .6rem; vertical-align: middle; }
     .task-row .figure-caption { margin-top: .5rem; font-size: .95rem; }
     .placeholder { background: #f2f2f2; border: 2px dashed #bbb; border-radius: 8px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; text-align: center; color: #888; }
   </style>
@@ -124,13 +121,13 @@
             <span class="link-block">
               <a class="button is-rounded" href="#" target="_blank" rel="noopener">
                 <span class="icon"><i class="fab fa-youtube"></i></span>
-                <span>Video</span>
+                <span>Video (TBA)</span>
               </a>
             </span>
             <span class="link-block">
               <a class="button is-rounded" href="#" target="_blank" rel="noopener">
                 <span class="icon"><i class="fab fa-github"></i></span>
-                <span>Code</span>
+                <span>Code (TBA)</span>
               </a>
             </span>
           </div>
@@ -387,35 +384,16 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Citation</h2>
-    <!-- TODO: update with real author list, arXiv ID, and year -->
+    <p class="citation-tba">TBA</p>
+
+    <!-- Restore this block once the arXiv ID is assigned:
 <pre class="bibtex"><code>@article{compvla2026,
   title   = {CompVLA: A Variable Compliance Vision-Language-Action Model for Contact-rich Manipulation},
   author  = {Kim, Jongmin and Ha, Junsu and Park, Che-Sang and Song, Minchang and Jeong, Hyeokju and Hwang, Himchan and Fu, Jianlong and Park, Frank C.},
   journal = {arXiv preprint arXiv:XXXX.XXXXX},
   year    = {2026}
 }</code></pre>
-  </div>
-</section>
-
-<!-- ============================ TODO (remove before release) ============================ -->
-<section class="section todo-section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-4 has-text-centered">Page TODO <span class="tag is-warning is-light">draft note, remove before release</span></h2>
-        <ul class="todo-list">
-          <li><input type="checkbox" disabled> Step-by-step video of Figure 1 in the paper</li>
-          <li><input type="checkbox" disabled checked> Example videos where contemporary VLAs fail</li>
-          <li><input type="checkbox" disabled checked> Institute logos (SNU, Robotics Laboratory, Microsoft Research Asia) in the header</li>
-          <li><input type="checkbox" disabled> Include the actual citation</li>
-          <li><input type="checkbox" disabled checked> Update the success rate table</li>
-          <li><input type="checkbox" disabled> Include teleoperation videos in "Contact-rich Demonstration Dataset"</li>
-          <li><input type="checkbox" disabled checked> Add task videos in "Real-world Experiments"</li>
-          <li><input type="checkbox" disabled> Experiment results grid showing how each model behaves</li>
-          <li><input type="checkbox" disabled checked> Match the aspect ratio of the Pivot and Cup Dispense videos in the first section</li>
-        </ul>
-      </div>
-    </div>
+    -->
   </div>
 </section>
 
