@@ -240,8 +240,8 @@
         <div class="columns is-variable is-4 capability-desc">
           <div class="column is-half">
             <div class="content">
-              <p><strong>Directional Compliance.</strong> The robot stays stiff in the plane of motion while remaining
-              compliant along the contact normal.</p>
+              <p><strong>Directional Compliance.</strong> The robot yields along the contact direction while remaining
+              stiff in the orthogonal directions.</p>
             </div>
           </div>
           <div class="column is-half">
@@ -276,7 +276,7 @@
 
         <h3 class="title is-4">Dual-expert Architecture</h3>
         <div class="content">
-          <p>CompVLA builds on a \( \pi_0 \) backbone (PaliGemma VLM) with two experts attached through cross-attention.
+          <p>CompVLA builds on a \( \pi_0 \) backbone (PaliGemma VLM) with two experts attached through blockwise causal attention.
           The <strong>Action Expert</strong> predicts the reference TCP twist and gripper command. Its integrated trajectory conditions the
           <strong>Compliance Expert</strong>, which predicts \( k_t \) and \( d_t \). Both experts are trained jointly with flow matching,
           \( \mathcal L = \mathcal L_a + \mathcal L_c \), where \( \mathcal L_a \) and \( \mathcal L_c \) are the flow-matching
@@ -337,7 +337,7 @@
               <tr class="col-row"><th>Erase</th><th>Pivot</th><th>Cup Dispense</th><th>Average</th><th>Pick &amp; Place</th></tr>
             </thead>
             <tbody>
-              <tr><td>\( \pi_0 \)</td><td>17.8 ± 7.1</td><td>31.7 ± 10.4</td><td>38.0 ± 12.1</td><td>29.2 ± 9.2</td><td>80.0 ± 10.0</td></tr>
+              <tr><td>\( \pi_0 \)</td><td>17.8 ± 7.1</td><td>31.7 ± 10.4</td><td>45.0 ± 0.0</td><td>31.5 ± 5.2</td><td>80.0 ± 10.0</td></tr>
               <tr><td>ForceVLA</td><td>68.1 ± 4.1</td><td>45.0 ± 15.0</td><td><strong>50.0 ± 8.7</strong></td><td>54.4 ± 4.3</td><td>45.0 ± 15.0</td></tr>
               <tr><td>TA-VLA</td><td>52.8 ± 9.7</td><td>26.7 ± 10.4</td><td>0.0 ± 0.0</td><td>26.5 ± 2.0</td><td><strong>83.3 ± 12.6</strong></td></tr>
               <tr class="group-end"><td><strong>CompVLA (ours)</strong></td><td><strong>92.9 ± 3.7</strong></td><td><strong>73.3 ± 10.4</strong></td><td>35.0 ± 10.0</td><td><strong>67.1 ± 7.2</strong></td><td>76.7 ± 5.8</td></tr>
@@ -366,10 +366,9 @@
       <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Contact-rich Demonstration Dataset</h2>
         <div class="content">
-          <p>We release the demonstrations used to train CompVLA: 100 episodes per task, collected with a force-feedback
+          <p>We release the demonstrations used to train CompVLA: 105–110 episodes per task, collected with a force-aware
           leader–follower teleoperation system. Each episode contains three camera views, joint positions,
-          <strong>joint torques, and wrist force/torque readings</strong>, synchronized at 10 Hz and stored in the
-          LeRobot format.</p>
+          <strong>joint torques, and wrist force/torque readings</strong>, synchronized at 10 Hz.</p>
         </div>
         <video controls autoplay muted loop playsinline preload="metadata">
           <source src="./assets/videos/dataset_grid.mp4" type="video/mp4">
