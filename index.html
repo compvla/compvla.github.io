@@ -81,7 +81,6 @@
         <div class="column has-text-centered">
           <h1 class="title publication-title">CompVLA: A Variable Compliance Vision-Language-<br>Action Model for Contact-rich Manipulation</h1>
 
-          <!-- TODO: update venue/status once decided -->
           <div class="publication-venue">Conference on Robot Learning (CoRL) 2026</div>
 
           <div class="publication-authors" style="margin-top:1rem">
@@ -109,7 +108,6 @@
             <img class="logo-microsoft" src="./assets/images/logos/microsoft.png" alt="Microsoft">
           </div>
 
-          <!-- TODO: replace # with YouTube / GitHub URLs -->
           <div class="publication-links">
             <span class="link-block">
               <a class="button is-rounded" href="https://arxiv.org/abs/2609.23614" target="_blank" rel="noopener">
@@ -124,9 +122,15 @@
               </a>
             </span>
             <span class="link-block">
-              <a class="button is-rounded" href="#" target="_blank" rel="noopener">
+              <a class="button is-rounded" href="https://github.com/compvla/CompVLA" target="_blank" rel="noopener">
                 <span class="icon"><i class="fab fa-github"></i></span>
-                <span>Code (TBA)</span>
+                <span>Code</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a class="button is-rounded" href="https://drive.google.com/drive/folders/15SLhbUN81K4f6syi3K83eudc17dwK3hx" target="_blank" rel="noopener">
+                <span class="icon"><i class="fas fa-database"></i></span>
+                <span>Dataset</span>
               </a>
             </span>
           </div>
@@ -172,7 +176,7 @@
           <p>Contact-rich manipulation, requiring robots to regulate not only motion but also how they yield to external forces,
           has emerged as the next frontier for Vision-Language-Action (VLA) models. However, existing VLAs output purely kinematic
           commands, degrading performance on real-world contact-rich tasks. In this paper, we introduce <em>CompVLA</em>, a unified VLA
-          framework that jointly predicts motion and stiffness matrix from RGB and language inputs. Our approach augments the
+          framework that jointly predicts motion and a stiffness matrix from RGB and language inputs. Our approach augments the
           conventional architecture with a dedicated Compliance Expert, which outputs time-varying stiffness and virtual displacement
           profiles executed via geometric impedance control. We demonstrate that CompVLA achieves the highest average success rate across
           diverse contact-rich tasks, outperforming both vanilla and compliance-aware VLA baselines, with ablations confirming each
@@ -193,7 +197,7 @@
           <p>Most VLAs execute trajectories through position control and do not model the force exchanges that arise during contact.
           A position controller tracks the commanded pose regardless of contact, so a small error in the predicted contact
           geometry leads to task failure. Aim slightly above the surface and the robot <strong>loses contact</strong>:
-          the gripper slips off the pivoting board. Aim slightly below and it applies <strong>excessive force</strong>, damaging the
+          the gripper slips off the box during pivoting. Aim slightly below and it applies <strong>excessive force</strong>, damaging the
           object or triggering the safety stop.</p>
         </div>
 
@@ -346,7 +350,7 @@
             </tbody>
           </table>
         </div>
-        <p class="figure-caption">Success rate (%), mean ± standard deviation. CompVLA achieves the highest average across the contact-rich
+        <p class="figure-caption">Success rate (%), mean ± standard deviation over three evaluation runs; DP and ACT use one run. CompVLA achieves the highest average across the contact-rich
         tasks while remaining comparable to \( \pi_0 \) on Pick and Place.</p>
 
         <!-- Optional: full experiment video
@@ -366,9 +370,9 @@
       <div class="column is-full-width">
         <h2 class="title is-3 has-text-centered">Contact-rich Demonstration Dataset</h2>
         <div class="content">
-          <p>We release the demonstrations used to train CompVLA: 107–115 episodes per task, collected with a force-aware
+          <p>We release <a href="https://drive.google.com/drive/folders/15SLhbUN81K4f6syi3K83eudc17dwK3hx" target="_blank" rel="noopener">the demonstrations</a> used to train CompVLA: 107–115 episodes per task, collected with a force-aware
           leader–follower teleoperation system. Each episode contains three camera views, joint positions,
-          <strong>joint torques, and wrist force/torque readings</strong>, synchronized at 10 Hz.</p>
+          <strong>joint torques, and wrist force/torque readings</strong>, recorded at their native rates; the conversion code synchronizes them at 10 Hz.</p>
         </div>
         <video controls autoplay muted loop playsinline preload="metadata">
           <source src="./assets/videos/dataset_grid.mp4" type="video/mp4">
